@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChefHat, Plus, X, Sparkles } from 'lucide-react';
 import { getRecipeFromMistral } from "../ai/ai.js";
 import Recipe from './Recipe.js';
+import {   Share2, Twitter, Github, Linkedin } from 'lucide-react';
+
 
 
 function App() {
@@ -83,47 +85,84 @@ const loaderRef = useRef<HTMLDivElement | null>(null);
 };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-100">
-      {/* Floating Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
+    // <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-100">
+    //   {/* Floating Elements */}
+    //   <div className="fixed inset-0 pointer-events-none overflow-hidden">
+    //     <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
+    //     <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    //   </div>
 
-      {/* Header */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900/95 backdrop-blur-lg shadow-lg' : ''}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-center">
-            <div className="flex items-center space-x-2 group">
-              <ChefHat className="w-8 h-8 text-emerald-400 transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 text-transparent bg-clip-text">
-                ChefGPT
-              </span>
+    //   {/* Header */}
+    //   <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900/95 backdrop-blur-lg shadow-lg' : ''}`}>
+    //     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    //       <div className="flex items-center justify-center">
+    //         <div className="flex items-center space-x-2 group">
+    //           <ChefHat className="w-8 h-8 text-emerald-400 transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" />
+    //           <span className="text-2xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 text-transparent bg-clip-text">
+    //             ChefGPT
+    //           </span>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </nav>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-100 flex flex-col min-h-screen">
+    {/* Floating Elements */}
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    </div>
+
+    {/* Navigation */}
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900/95 backdrop-blur-lg shadow-lg' : ''}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-8">
+            <div className="flex items-center">
+              <ChefHat className="w-8 h-8 text-emerald-400" />
+              <a href="#home"><span className="ml-2 text-xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 text-transparent bg-clip-text">ChefGPT</span></a>
+
+            </div>
+            <div className="hidden md:flex space-x-6">
+              <a href="#features" className="text-gray-300 hover:text-emerald-400 transition-colors">Features</a>
+              <a href="#recipes" className="text-gray-300 hover:text-emerald-400 transition-colors">Recipes</a>
+              <a href="#pricing" className="text-gray-300 hover:text-emerald-400 transition-colors">Pricing</a>
             </div>
           </div>
+          <div className="flex items-center space-x-4">
+            <button className="text-gray-300 hover:text-white transition-colors">Sign In</button>
+              <button onClick={() => window.location.href = "https://chefgpt-yopb.vercel.app/"} className="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/20">
+              Get Started
+            </button>
+          
+
+
+
+          </div>
         </div>
-      </nav>
+      </div>
+    </nav>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 pt-32 pb-16">
-        {/* Ingredient Input */}
-        <div className="flex flex-col sm:flex-row gap-2 justify-center mb-12 animate-fade-in">
-          <input
-            type="text"
-            placeholder="e.g. oregano (Enter at least 4 ingredients)"
-            className="w-full sm:flex-1 sm:max-w-lg px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 backdrop-blur-lg"
-            value={newIngredient}
-            onChange={(e) => setNewIngredient(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button
-            onClick={addIngredient}
-            className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center sm:justify-start gap-2 group"
-          >
-            <Plus className="w-5 h-5 transition-transform duration-300 group-hover:rotate-180" />
-            Add Ingredient
-          </button>
-        </div>
+      <main className="max-w-4xl mx-auto px-4 pt-32 pb-16 flex-grow min-h-screen flex flex-col">
+      {/* Ingredient Input */}
+        <div className="flex flex-col sm:flex-row gap-2 justify-center items-center mb-12 animate-fade-in">
+  <input
+    type="text"
+    placeholder="e.g. oregano (Enter at least 4 ingredients)"
+    className="w-full sm:w-[400px] flex-shrink-0 px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 backdrop-blur-lg"
+    value={newIngredient}
+    onChange={(e) => setNewIngredient(e.target.value)}
+    onKeyPress={handleKeyPress}
+  />
+  <button
+    onClick={addIngredient}
+    className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center sm:justify-start gap-2 group"
+  >
+    <Plus className="w-5 h-5 transition-transform duration-300 group-hover:rotate-180" />
+    Add Ingredient
+  </button>
+</div>
+
 
         {/* Ingredients List */}
         <div className="mb-12 animate-fade-in">
@@ -188,6 +227,52 @@ const loaderRef = useRef<HTMLDivElement | null>(null);
         </>
       )}
       </main>
+      <footer className="relative bg-gray-900 border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center mb-4">
+                <ChefHat className="w-8 h-8 text-emerald-400" />
+                <span className="ml-2 text-xl font-bold">ChefGPT</span>
+              </div>
+              <p className="text-gray-400 text-sm">Transform your cooking experience with the power of AI.</p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Product</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Pricing</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">API</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Careers</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Legal</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Privacy</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Terms</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Security</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-gray-800">
+            <p className="text-gray-500 text-sm">© 2024 ChefGPT. Made with 💗 by Avinash</p>
+            <div className="flex items-center gap-6">
+              <Twitter className="w-5 h-5 text-gray-400 hover:text-emerald-400 cursor-pointer transition-colors duration-300" />
+              <Github className="w-5 h-5 text-gray-400 hover:text-emerald-400 cursor-pointer transition-colors duration-300" />
+              <Linkedin className="w-5 h-5 text-gray-400 hover:text-emerald-400 cursor-pointer transition-colors duration-300" />
+              <Share2 className="w-5 h-5 text-gray-400 hover:text-emerald-400 cursor-pointer transition-colors duration-300" />
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
