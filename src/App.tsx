@@ -59,9 +59,15 @@ const loaderRef = useRef<HTMLDivElement | null>(null);
   };
 
   const removeIngredient = (ingredient: string) => {
-    setIngredients(ingredients.filter(i => i !== ingredient));
+    setIngredients((prevIngredients) => {
+      const index = prevIngredients.indexOf(ingredient);
+      if (index === -1) return prevIngredients; // Ingredient not found
+      const newIngredients = [...prevIngredients];
+      newIngredients.splice(index, 1);
+      return newIngredients;
+    });
   };
-
+  
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       addIngredient();
@@ -166,28 +172,36 @@ const loaderRef = useRef<HTMLDivElement | null>(null);
 
         {/* Ingredients List */}
         <div className="mb-12 animate-fade-in">
-          {ingredients.length != 0 && <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-white via-emerald-200 to-emerald-400 text-transparent bg-clip-text">
-            Ingredients on hand:
-          </h2>}
-          <ul className="space-y-3">
-            {ingredients.map((ingredient, index) => (
-              <li
-                key={ingredient}
-                className="flex items-center gap-3 group bg-gray-800/30 backdrop-blur-lg p-3 rounded-lg border border-gray-700 hover:border-emerald-500/50 transition-all duration-500 animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <button
-                  onClick={() => removeIngredient(ingredient)}
-                  className="opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                >
-                  <X className="w-4 h-4 text-red-400 hover:text-red-300 transition-colors duration-200" />
-                </button>
-                <span className="text-gray-300">•</span>
-                <span className="text-gray-200">{ingredient}</span>
-              </li>
-            ))}
-          </ul>
+  {ingredients.length != 0 && (
+    <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-white via-emerald-200 to-emerald-400 text-transparent bg-clip-text">
+      Ingredients on hand:
+    </h2>
+  )}
+  <ul className="space-y-3">
+    {ingredients.map((ingredient, index) => (
+      <li
+        key={ingredient}
+        className="flex items-center justify-between group bg-gray-800/30 backdrop-blur-lg p-3 rounded-lg border border-gray-700 hover:border-emerald-500/50 transition-all duration-500 animate-fade-in"
+        style={{ animationDelay: `${index * 100}ms` }}
+      >
+        {/* Left Side: Ingredient */}
+        <div className="flex items-center gap-3">
+          <span className="text-gray-300">•</span>
+          <span className="text-gray-200">{ingredient}</span>
         </div>
+
+        {/* Right Side: Remove Button */}
+        <button
+          onClick={() => removeIngredient(ingredient)}
+          className="text-red-400 hover:text-red-300 transition-colors duration-200"
+        >
+          Remove
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
+
 
         {/* Recipe Generation Section */}
         {ingredients.length >= 4 && <div className="relative bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 p-6 sm:p-8 rounded-3xl shadow-2xl overflow-hidden animate-fade-in">
