@@ -149,15 +149,15 @@ const loaderRef = useRef<HTMLDivElement | null>(null);
   <input
     type="text"
     placeholder="e.g. oregano (Enter at least 4 ingredients)"
-    className="w-[300px] sm:w-[400px] flex-shrink-0 px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 backdrop-blur-lg"
+    className="w-[300x] sm:w-[500px] flex-shrink-0 px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 backdrop-blur-lg"
     value={newIngredient}
     onChange={(e) => setNewIngredient(e.target.value)}
     onKeyPress={handleKeyPress}
   />
-  <button
-    onClick={addIngredient}
-    className="w-[300px] sm:w-[400px] flex-shrink-0 px-4 py-3 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center sm:justify-start gap-2 group"
-  >
+ <button
+  onClick={addIngredient}
+  className="w-auto min-w-[150px] px-4 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center gap-2 group"
+>
     <Plus className="w-5 h-5 transition-transform duration-300 group-hover:rotate-180" />
     Add Ingredient
   </button>
