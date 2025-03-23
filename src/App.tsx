@@ -125,7 +125,7 @@ const loaderRef = useRef<HTMLDivElement | null>(null);
           <div className="flex items-center space-x-8">
             <div className="flex items-center">
               <ChefHat className="w-8 h-8 text-emerald-400" />
-              <a href="#home"><span className="ml-2 text-xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 text-transparent bg-clip-text">ChefGPT</span></a>
+              <a href="https://chefgpt-xi.vercel.app/#home"><span className="ml-2 text-xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 text-transparent bg-clip-text">ChefGPT</span></a>
 
             </div>
             <div className="hidden md:flex space-x-6">
