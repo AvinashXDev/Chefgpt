@@ -162,7 +162,7 @@ const loaderRef = useRef<HTMLDivElement | null>(null);
   />
  <button
   onClick={addIngredient}
-  className="w-auto min-w-[150px] px-4 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center gap-2 group"
+  className="w-auto min-w-[200px] px-4 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center gap-2 group"
 >
     <Plus className="w-5 h-5 transition-transform duration-300 group-hover:rotate-180" />
     Add Ingredient
